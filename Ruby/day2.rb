@@ -125,3 +125,27 @@ tree.visit {|node| puts node.node_name}
 puts "All the tree:"
 tree.visit_all {|node| puts node.node_name}
 
+
+
+
+## 3º) Write a simple grep that will print the lines of a file having any
+##	occurrences of a phrase anywhere in that line. You will need to do
+##	a simple regular expression match and read lines from a file. (This
+##	is surprisingly simple in Ruby.) If you want, include line numbers.
+
+def grep(patron) 
+	
+	file = File.new('example_file.txt', 'r')
+
+	lineNumber = 1
+	file.each_line do |line| 
+		
+		if (line.grep(/#{patron}/).to_s != "") 
+			puts "#{lineNumber}: #{line}"
+		end
+		lineNumber = lineNumber + 1
+	end
+end
+
+grep("En")
+
