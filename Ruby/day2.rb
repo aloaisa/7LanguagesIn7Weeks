@@ -70,3 +70,58 @@ numbers.each_slice(4) do |uno, dos, tres, cuatro|
 	 puts "#{uno}, #{dos}, #{tres}, #{cuatro}"
 end
 
+
+## 2º) The Tree class was interesting, but it did not allow you to specify
+##	a new tree with a clean user interface. Let the initializer accept a
+##	nested structure with hashes and arrays. You should be able to
+##	specify a tree like this: {’grandpa’ => { ’dad’ => {’child 1’ => {}, ’child
+##	2’ => {} }, ’uncle’ => {’child 3’ => {}, ’child 4’ => {} } } }.
+
+class Tree
+        attr_accessor :children, :node_name
+
+        def initialize(tree)
+
+		if (tree.size == 1)
+			@children = []
+
+			tree.each do |name ,childTree| 
+				@node_name = name 
+			
+				childTree.each do |subChildName, subChildren|
+					@children.push(Tree.new({subChildName => subChildren}))
+				end
+			end
+		end
+        end
+
+        def visit_all(&block)
+                visit &block
+                children.each {|c| c.visit_all &block}
+        end
+
+        def visit(&block)
+                block.call self
+        end
+end
+
+tree = Tree.new({'grandpa' => {'dad' => {'child 1' => {},'child 2' => {}},'uncle' => {'child 3' => {},'child 4' => {}}}})
+tree = Tree.new({'grandpa' => {
+				 'dad' => {
+						'child 1' => {}, 
+						'child 2' => {} 
+					},
+
+				 'uncle' => {
+						'child 3' => {},
+						'child 4' => {}
+					 }
+			 }
+		 })
+
+puts "Only a node:"
+tree.visit {|node| puts node.node_name}
+
+puts "All the tree:"
+tree.visit_all {|node| puts node.node_name}
+
