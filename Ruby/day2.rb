@@ -132,20 +132,37 @@ tree.visit_all {|node| puts node.node_name}
 ##	occurrences of a phrase anywhere in that line. You will need to do
 ##	a simple regular expression match and read lines from a file. (This
 ##	is surprisingly simple in Ruby.) If you want, include line numbers.
-
-def grep(patron) 
+class File
 	
-	file = File.new('example_file.txt', 'r')
+	def regexp(patron)
 
-	lineNumber = 1
-	file.each_line do |line| 
+		matches = []
+		lineNumber = 1
+
+		File.new(self.path, 'r').each_line do |line| 
 		
-		if (line.grep(/#{patron}/).to_s != "") 
-			puts "#{lineNumber}: #{line}"
+			if (line.grep(/#{patron}/).to_s != "") 
+				matches.push("#{lineNumber}: #{line}")
+			end
+			lineNumber = lineNumber + 1
 		end
-		lineNumber = lineNumber + 1
+		return matches
 	end
 end
 
-grep("En")
+file = File.new('example_file.txt', 'r')
+puts file.regexp("En")
+puts file.regexp("al")
+
+
+## Second grep type
+regexp = Regexp.new("al")
+
+File.open('example_file.txt', "r").each_with_index do |line, index|
+	if regexp.match(line)
+		index = index + 1
+		puts "#{index}: #{line}"
+	end
+end
+
 
