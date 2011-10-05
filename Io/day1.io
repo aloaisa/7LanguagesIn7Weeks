@@ -97,15 +97,19 @@ New slotNames
 
 # 2º) Execute the code in a slot given its name.
 
+new := Object clone
+new example := method("Hello, world!")
+new getSlot("example") call
+
+#Spend a little time playing with slots and prototypes. Make sure you
+#understand how prototypes work.
+
 yourName := method(
 	writeln ("What's your name?"); 
 	name := File standardInput readLine ("#: ");
 	writeln ("Hello ", name)
 )
 
-
-#Spend a little time playing with slots and prototypes. Make sure you
-#understand how prototypes work.
 
 
 
