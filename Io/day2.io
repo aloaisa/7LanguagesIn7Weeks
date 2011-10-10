@@ -58,9 +58,13 @@ unless := method(
 unless(1 == 2, write("One is not two\n" ), write("one is two\n" ))
 
 
-westley := Object clone
-westley trueLove := true
-princessButtercup unless(trueLove, ("It is false" println), ("It is true" println))
+westly := Object clone
+westly trueLove := true
+princessButterCup := Object clone
+
+westly princessButtercup := method(princessButtercup, unless(trueLove,("It is false" println), ("It is true" println)))
+westly princessButtercup
+
 
 
 
