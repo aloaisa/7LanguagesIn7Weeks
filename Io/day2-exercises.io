@@ -102,42 +102,119 @@ list2 := list ("Launch a Exception", 2, 3, 4)
 #	should allocate a list of y lists that are x elements long. set(x, y,
 #	value) should set a value, and get(x, y) should return that value.
 
-TwoDimension := Object clone
 
-TwoDimension dim := method(x, y, 
-	self arr := List clone;
-	for(number, 1, y, 
-		arr push(List clone setSize(x))
+TwoDimension := List clone;
+
+TwoDimension dim := method(x, y,
+	self setSize(x);
+
+	for (i, 0, (x - 1), 1,
+		self atPut(i,
+			(list setSize(y))
+		)
 	)
 )
 
-TwoDimension set := method(x, y, value,
-	self arr at(x) atPut(y,value)
+TwoDimension get := method (x, y,
+        return self at(x) at(y)
 )
 
-TwoDimension get := method(x, y, 
-	self arr at(x) at(y)
+TwoDimension set := method (x, y, value,
+	self at(x) atPut(y,value)
+	return self
 )
 
-example := TwoDimension clone dim(2,2)
-example println
-example set(0,0,"O")
-example set(0,1,"1")
-example set(0,2,"2")
-example set(2,2,"3")
-example get(0,2) println
-
+matrix := TwoDimension clone dim(3, 3)
+matrix println
+matrix set(0, 0, "O")
+matrix set(0, 1, "1")
+matrix set(0, 2, "2")
+matrix set(2, 2, "3")
+matrix get(2, 2) println
 
 
 ## 6. Bonus: Write a transpose method so that (new_matrix get(y, x)) ==
 #	matrix get(x, y) on the original list.
 
+
+TwoDimension transpose := method (
+
+	tempX := self size
+	tempY := self first size
+	
+	tempMatrix := TwoDimension clone dim ( tempY, tempX )
+
+	for (rol_x, 0, (tempX - 1),
+		for(rol_y, 0, (tempY - 1),
+			tempMatrix set(rol_y, rol_x, self get(rol_x, rol_y))
+		)
+	)
+
+	tempMatrix
+)
+
+matrix := TwoDimension clone dim(3, 3)
+matrix set(0, 0, "O")
+matrix set(0, 1, "1")
+matrix set(0, 2, "2")
+matrix set(1, 0, "3")
+matrix set(1, 1, "4")
+matrix set(1, 2, "5")
+matrix set(2, 0, "6")
+matrix set(2, 1, "7")
+matrix set(2, 2, "8")
+matrix println
+
+matrix2 := matrix transpose
+matrix2 println
+
+
 ## 7. Write the matrix to a file, and read a matrix from a file.
+
+TwoDimension writeToFile := method (
+        File with("TwoDimension.txt") open write(self serialized) close
+)
+
+matrix2 writeToFile 
+matrix := doFile("TwoDimension.txt");
+matrix println
+
+
 
 ## 8. Write a program that gives you ten tries to guess a random number
 #	from 1–100. If you would like, give a hint of “hotter” or “colder”
 #	after the first guess.
 
+
+numbe := Random value(1,100) round
+line := File standardInput;
+attempts := 0
+prev_diff := nil
+
+"\nPick a number between 1 and 100: " println
+
+while(attempts < 10,
+
+	try := line readLine("Try: ")
+
+	try := try asNumber
+
+	if(try isNan, continue)
+
+	difference := (number - try) abs
+
+	if(difference == 0,
+		"Yes Guessed!!" println
+		break
+	)
+
+	if(prev_diff > difference,
+			"Hotter" println,
+			"Colder" println
+	)
+
+	prev_diff := difference
+)
 
 
 
