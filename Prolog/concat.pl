@@ -30,6 +30,18 @@ concatenate([Head1|[Head2|[Head3|[]]]], List, [Head1, Head2, Head3|List]).
 % => What = [malfoy,granger,potter]
 % => yes
 
+%%%%%%%%%%%%%%%%%%%%%%
+% Finaly
+concatenate([], List, List).
+concatenate([Head|Tail1], List, [Head|Tail2]) :-
+	concatenate(Tail1, List, Tail2).
+
+% concatenate([1, 2], [3], What).
+% => What = [1,2,3]
+% => yes
+
+
+
 
 
 
