@@ -80,4 +80,58 @@ println("Censored Text: ")
 println(text.getCensoredText)
 
 
+/*
+**
+** Load the curse words and alternatives from a file.
+**
+*/
+
+class Censor2(val filePath: String) {
+ 
+	val file = io.Source.fromFile(filePath)
+	var wordsToCensored = Map[String, String]()
+ 
+	wordsToCensored = file.getLines.foldLeft(wordsToCensored) {
+ 
+		(mappings, data) =>
+			val terms = data.split( "#" )
+			(mappings + (terms(0) -> terms(1)))
+ 
+	}
+ 
+	def doCensor(text: String) = {
+ 
+		wordsToCensored.foldLeft(text)((censoredText, mapping) =>
+ 
+				censoredText.replaceAll(
+					("(?i)\\b" + mapping._1 + "\\b"),
+					mapping._2
+				)
+		)
+	}
+}
+
+class Text2(val text: String, val censor2: Censor2) {
+        def getText() = this.text
+        def getCensoredText() = this.censor2.doCensor(this.getText)
+}
+ 
+val text2 = new Text2(
+        "Darn, shoot, and heck are all interjections, mild expressions " +
+        "of surprise or dismay. Heck is a cleaner version of hell, darn" +
+        "a more polite version of damn, and shoot is a more innocuous " +
+        "version of shit.",
+ 
+	new Censor2("./Words.txt")
+)
+ 
+println("\n")
+println("From a File:")
+
+println("Original Text: ")
+println(text2.getText)
+
+println("Censored Text: ")
+println(text2.getCensoredText)
+
 
