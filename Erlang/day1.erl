@@ -109,10 +109,41 @@ Two.
 Rest.
 %[3]
 
-[X|Rest] = [].
+%[X|Rest] = [].
 %** exception error: no match of right hand side value []
 
-one = 1.
+%one = 1.
 %** exception error: no match of right hand side value 1
+
+W = 1.
+%1
+
+X = 2.
+%2
+
+Y = 3.
+%3
+
+Z = 4.
+%4
+
+All = <<W:3, X:3, Y:5, Z:5>>.
+%<<"(d">>
+
+<<A:3, B:3, C:5, D:5>> = All.
+%<<"(d">>
+
+A.
+%1
+
+D.
+%4
+
+
+
+
+
+
+
 
 
