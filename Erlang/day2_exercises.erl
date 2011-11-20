@@ -18,6 +18,7 @@
 -module(day2_exercises).
 -export([getValue/2]).
 -export([totalPrice/1]).
+-export([tic_tac_toe_board/1]).
 
 
  
@@ -74,24 +75,79 @@ totalPrice(ItemList) ->
 %[{bread,2.4},{milk,3.12},{sugar,1.98}]
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Write a program that reads a tic-tac-toe board presented as a list
+%% or a tuple of size nine. Return the winner (x or o) if a winner
+%% has been determined, cat if there are no more possible moves,
+%% or no_winner if no player has won yet.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+tic_tac_toe_board(Board) ->
+ 
+	PossibleWinningPaths = [
+				{1,2,3},
+				{4,5,6},
+				{7,8,9},
+				{1,4,7},
+				{2,5,8},
+				{3,6,9},
+				{1,5,9},
+				{3,5,7}
+			],
+ 
+	WinningPaths = lists:filter(
+
+		fun(Path) ->
+			A = lists:nth(element(1, Path), Board),
+			B = lists:nth(element(2, Path), Board),
+			C = lists:nth(element(3, Path), Board),
+ 
+			(A /= " ") and (A == B) and (A == C)
+		end,
+		PossibleWinningPaths
+	),
+ 
+	case WinningPaths of
+ 
+		[WinningPath | _] -> lists:nth(element(1, WinningPath), Board);
+ 
+		[] -> 
+			HasSpaces = lists:any(
+
+				fun(X) -> (X == " ") end,
+				Board
+
+			),
+ 
+			if (HasSpaces) -> "There aren't winner yet";
+ 
+			true -> draw 
+ 
+			end
+	end
+.
 
 
 
 
+%c(day2_exercises).
+%{ok,day2_exercises}
 
+%day2_exercises:tic_tac_toe_board([" "," "," "," "," "," "," "," "," "]).
+%"There aren't winner yet"
 
+%day2_exercises:tic_tac_toe_board([" "," "," "," "," "," ","X","X","X"]).   
+%"X"
 
+%day2_exercises:tic_tac_toe_board(["O","O","O"," "," "," "," "," "," "]).
+%"O"
 
+%day2_exercises:tic_tac_toe_board(["O","X","O","X","O","X","O"," "," "] ).
+%"O"
 
-
-
-
-
-
-
-
-
-
-
+%day2_exercises:tic_tac_toe_board(["O","X","O","X","O","X","X","O","X"]). 
+%draw
 
 
