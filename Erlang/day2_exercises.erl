@@ -17,6 +17,9 @@
 
 -module(day2_exercises).
 -export([getValue/2]).
+-export([totalPrice/1]).
+
+
  
 getValue(List, Key) ->
  
@@ -54,6 +57,35 @@ getValue(List, Key) ->
 %% [{item total_price}, ...], where total_price is quantity times price.
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+totalPrice(ItemList) ->
+
+	[{Item, (Quantity * Price)} || {Item, Quantity, Price} <- ItemList]
+.
+
+
+%c(day2_exercises).                                                        
+%{ok,day2_exercises}
+
+%Items = [{bread, 2, 1.20}, {milk, 6, 0.52}, {sugar, 2, 0.99}].
+%[{bread,2,1.2},{milk,6,0.52},{sugar,2,0.99}]
+
+%day2_exercises:totalPrice(Items).
+%[{bread,2.4},{milk,3.12},{sugar,1.98}]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
