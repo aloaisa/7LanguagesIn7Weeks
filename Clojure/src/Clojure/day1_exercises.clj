@@ -32,3 +32,38 @@ iprintln (big "example" 0))
 //nil
  
 
+
+// Write a function called (collection-type col) that returns :list, :map,
+//	or :vector based on the type of collection col.
+
+
+(defn
+	collection-type
+	[col]
+	(cond
+		(list? col) :list
+		(map? col) :map
+		(vector? col) :vector
+	)
+)
+ 
+(def myList '(1 2 3 4 5 6))
+//#'user/myList
+
+(def myMap {:a 1, :b 2, :c 3, :d 4, :e 5, :f 6})
+//#'user/myMap
+
+(def myVector [1 2 3 4 5 6])
+//#'user/myVector
+ 
+(println (collection-type myList))
+//:list
+//nil
+
+(println (collection-type myMap))
+//:map
+//nil
+
+(println (collection-type myVector))
+//:vector
+//nil
