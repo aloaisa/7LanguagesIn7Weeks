@@ -151,3 +151,32 @@ for [x colors, y toys] (str "I like " x " " y "s"))
 ;120
 
 
+;;; MACROS ;;;
+
+(defn unless [test body] (if (not test) body))
+;#'user/unless
+
+(unless true (println "Danger, danger Will Robinson"))
+;Danger, danger Will Robinson
+;nil
+
+(macroexpand ''something-we-do-not-want-interpreted)
+;(quote something-we-do-not-want-interpreted)
+
+macroexpand '#(count %))
+;(fn* [p1__97] (count p1__97))
+
+(defmacro unless [test body]
+	(list 'if (list 'not test) body))
+;#'user/unless
+
+(macroexpand '(unless condition body))
+(if (not condition) body)
+
+(unless true (println "No more danger, Will."))
+;nil
+
+(unless false (println "Now, THIS is The FORCE."))
+;Now, THIS is The FORCE.
+;nil
+
