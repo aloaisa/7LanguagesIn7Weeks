@@ -41,15 +41,15 @@
 		conj
 		{
 			:account "768"
-			:balance 50
+			:balance 35
 		}
 		{
 			:account "537"
-			:balance 50
+			:balance 10
 		}
 		{
 			:account "5345"
-			:balance 50
+			:balance 44
 		}
 	)
 )
@@ -57,12 +57,12 @@
 (dosync
 	(alter
 	accounts
-		credit "537" 50
+		credit "537" 10
 	)
  
 	(alter
 	accounts
-		debit "768" 25
+		debit "768" 65
 	)
 )
  
