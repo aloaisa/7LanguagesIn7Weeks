@@ -148,8 +148,114 @@ fib 1000
 
 
 
+let second = head . tail
+second [1, 2]
+//2
+
+second [3, 4, 5]
+//4
+
+fibNextPair :: (Integer, Integer) -> (Integer, Integer)
+fibNextPair (x, y) = (y, x + y)
+
+fibNthPair :: Integer -> (Integer, Integer)
+fibNthPair 1 = (1, 1)
+fibNthPair n = fibNextPair (fibNthPair (n - 1))
+
+fibNthPair(8)
+//(21,34)
+
+fibNthPair(9)
+//(34,55)
+
+fibNthPair(10)
+//(55,89)
+
+let (h:t) = [1, 2, 3, 4]
+h
+//1
+
+t
+//[2,3,4]
+
+:load lists.hs
+//[1 of 1] Compiling Main             ( lists.hs, interpreted )
+//Ok, modules loaded: Main.
+
+size "Fascinating."
+//12
+
+zip "kirk" "spock"
+//[('kirk','spock')]
+
+zip ["kirk", "spock"] ["enterprise", "reliant"]
+//[("kirk","enterprise"),("spock","reliant")]
 
 
+let h:t = [1, 2, 3]
+h
+//1
+
+//t
+[2,3]
+
+1:[2, 3]
+//[1,2,3]
+
+//[1]:[2, 3]
+//<interactive>:1:8:
+//No instance for (Num [t])
+//arising from the literal `3' at <interactive>:1:8
 
 
+[1]:[[2], [3, 4]]
+//[[1],[2],[3,4]]
+
+[1]:[]
+//[[1]]
+
+[1..2]
+//[1,2]
+
+[1..4]
+//[1,2,3,4]
+
+[10..4]
+//[]
+
+[10, 8 .. 4]
+//[10,8,6,4]
+
+[10, 9.5 .. 4]
+//[10.0,9.5,9.0,8.5,8.0,7.5,7.0,6.5,6.0,5.5,5.0,4.5,4.0]
+
+take 5 [ 1 ..]
+//[1,2,3,4,5]
+
+take 5 [0, 2 ..]
+//[0,2,4,6,8]
+
+[x * 2 | x <- [1, 2, 3]]
+//[2,4,6]
+
+
+[ (y, x) | (x, y) <- [(1, 2), (2, 3), (3, 1)]]
+//[(2,1),(3,2),(1,3)]
+
+[ (4 - x, y) | (x, y) <- [(1, 2), (2, 3), (3, 1)]]
+//[(3,2),(2,3),(1,1)]
+
+let crew = ["Kirk", "Spock", "McCoy"]
+
+[(a, b) | a <- crew, b <- crew]
+//[("Kirk","Kirk"),("Kirk","Spock"),("Kirk","McCoy"),
+//("Spock","Kirk"),("Spock","Spock"),("Spock","McCoy"),
+//("McCoy","Kirk"),("McCoy","Spock"),("McCoy","McCoy")]
+
+[(a, b) | a <- crew, b <- crew, a /= b]
+//[("Kirk","Spock"),("Kirk","McCoy"),("Spock","Kirk"),
+//("Spock","McCoy"),("McCoy","Kirk"),("McCoy","Spock")]
+
+[(a, b) | a <- crew, b <- crew, a < b]
+//[("Kirk","Spock"),("Kirk","McCoy"),("McCoy","Spock")]
 
