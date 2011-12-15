@@ -1,10 +1,10 @@
----------------------------------------------
+-- -- --- --- --- --- --- --- --- --- --- --- --- --- --- --
 --
 -- Language Haskell.
 -- - Day 1
 -- 	Seven Languages in seven weeks
 --
---------------------------------------------
+-- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 -- How many different ways can you find to write allEven?
 
@@ -20,38 +20,36 @@ module Main where
 			allEven(tail)
  
 	allEven2 :: [Integer] -> [Integer]
-	allEven2 paramlist =
+	allEven2 numbers =
 		foldr
-			(\n evens -> if (even n) then (n:evens) else evens)
+			(\x evens -> if (even x) then (x:evens) else evens)
 			[]
-			paramList	
+			numbers	
  
 
 	allEven3 :: [Integer] -> [Integer]
-	allEven3 paramList = filter even paramList
+	allEven3 numbers = filter even numbers
 
  
 	allEven4 :: [Integer] -> [Integer]
-	allEven4 paramList = [n | n <- paramList, (even n)]
+	allEven4 numbers = [x | x <- numbers, (even x)]
 
 
 
  
---:load day2_exercises.hs
---[1 of 1] Compiling Main ( day2_exercises.hs, interpreted )
---Ok, modules loaded: Main.
+-- :load day2_exercises.hs
+-- [1 of 1] Compiling Main ( day2_exercises.hs, interpreted )
+-- Ok, modules loaded: Main.
 
-allEven([1, 2, 3, 4, 5])
---[2,4]
+-- allEven([1, 2, 3, 4, 5])
+-- [2,4]
 
-allEven2([1, 2, 3, 4, 5])
---[2,4]
+-- allEven2([1, 2, 3, 4, 5])
+-- [2,4]
 
-allEven3([1, 2, 3, 4, 5])
---[2,4]
+-- allEven3([1, 2, 3, 4, 5])
+-- [2,4]
 
-allEven4([1, 2, 3, 4, 5])
---[2,4]
-
-
+-- allEven4([1, 2, 3, 4, 5])
+-- [2,4]
 
